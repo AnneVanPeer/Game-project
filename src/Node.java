@@ -3,12 +3,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Stop {
+public class Node {
 
 	private int number;
-	private Map<String, ArrayList<Stop>> connections = new HashMap<String, ArrayList<Stop>>();
+	private Map<String, ArrayList<Node>> connections = new HashMap<String, ArrayList<Node>>();
 
-	public Stop(int n) {
+	public Node(int n) {
 		this.number = n;
 		initializeConnectionLists();
 	}
@@ -18,9 +18,9 @@ public class Stop {
 	 * type of route
 	 */
 	private void initializeConnectionLists() {
-		connections.put("T", new ArrayList<Stop>());
-		connections.put("B", new ArrayList<Stop>());
-		connections.put("U", new ArrayList<Stop>());
+		connections.put("T", new ArrayList<Node>());
+		connections.put("B", new ArrayList<Node>());
+		connections.put("U", new ArrayList<Node>());
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class Stop {
 	 *            the goal stop
 	 * @return list of shortest routes from this stop to the goal stop
 	 */
-	public ArrayList<ArrayList<Stop>> pathTo(Stop goal) {
+	public ArrayList<ArrayList<Node>> pathTo(Node goal) {
 		return pathTo(goal, 1000);
 	}
 
@@ -44,16 +44,16 @@ public class Stop {
 	 *            number of random paths tried
 	 * @return list of shortest routes from this stop to the goal stop
 	 */
-	public ArrayList<ArrayList<Stop>> pathTo(Stop goal, int n) {
-		ArrayList<ArrayList<Stop>> routes = new ArrayList<ArrayList<Stop>>();
+	public ArrayList<ArrayList<Node>> pathTo(Node goal, int n) {
+		ArrayList<ArrayList<Node>> routes = new ArrayList<ArrayList<Node>>();
 		while (routes.size() < n) {
-			ArrayList<Stop> route = new ArrayList<Stop>();
+			ArrayList<Node> route = new ArrayList<Node>();
 			route.add(this);
 			routes.add(pathTo(goal, route));
 		}
 		int minLength = 999;
-		ArrayList<ArrayList<Stop>> shortestRoutes = new ArrayList<ArrayList<Stop>>();
-		for (ArrayList<Stop> route : routes) {
+		ArrayList<ArrayList<Node>> shortestRoutes = new ArrayList<ArrayList<Node>>();
+		for (ArrayList<Node> route : routes) {
 			if (route.size() < minLength && route.size() > 0) {
 				shortestRoutes.clear();
 				shortestRoutes.add(route);
@@ -75,8 +75,8 @@ public class Stop {
 	 *            the shortest routes
 	 * @return is route in shortest routes
 	 */
-	private boolean inList(ArrayList<Stop> route, ArrayList<ArrayList<Stop>> shortestRoutes) {
-		for (ArrayList<Stop> routeInList : shortestRoutes) {
+	private boolean inList(ArrayList<Node> route, ArrayList<ArrayList<Node>> shortestRoutes) {
+		for (ArrayList<Node> routeInList : shortestRoutes) {
 			if (routeInList.equals(route)) {
 				return true;
 			}
@@ -93,8 +93,8 @@ public class Stop {
 	 *            the stop
 	 * @return is stop in routes
 	 */
-	private boolean onRoute(ArrayList<Stop> route, Stop s) {
-		for (Stop st : route) {
+	private boolean onRoute(ArrayList<Node> route, Node s) {
+		for (Node st : route) {
 			if (st.equals(s)) {
 				return true;
 			}
@@ -111,9 +111,9 @@ public class Stop {
 	 *            the route
 	 * @return
 	 */
-	private ArrayList<Stop> pathTo(Stop goal, ArrayList<Stop> route) {
-		ArrayList<Stop> allConnections = route.get(route.size() - 1).getAllConnections();
-		for (Stop s : allConnections) {
+	private ArrayList<Node> pathTo(Node goal, ArrayList<Node> route) {
+		ArrayList<Node> allConnections = route.get(route.size() - 1).getAllConnections();
+		for (Node s : allConnections) {
 			if (!onRoute(route, s)) {
 				if (s == goal) {
 					route.add(s);
@@ -124,7 +124,7 @@ public class Stop {
 				}
 			}
 		}
-		return new ArrayList<Stop>();
+		return new ArrayList<Node>();
 	}
 
 	/**
@@ -133,11 +133,11 @@ public class Stop {
 	 * @return all stops connected to this one in a random oreder
 	 */
 	@SuppressWarnings("unchecked")
-	public ArrayList<Stop> getAllConnections() {
-		ArrayList<Stop> tConnections = (ArrayList<Stop>) this.getConnections().get("T").clone();
-		ArrayList<Stop> bConnections = (ArrayList<Stop>) this.getConnections().get("B").clone();
-		ArrayList<Stop> uConnections = (ArrayList<Stop>) this.getConnections().get("U").clone();
-		ArrayList<Stop> allConnections = new ArrayList<Stop>();
+	public ArrayList<Node> getAllConnections() {
+		ArrayList<Node> tConnections = (ArrayList<Node>) this.getConnections().get("T").clone();
+		ArrayList<Node> bConnections = (ArrayList<Node>) this.getConnections().get("B").clone();
+		ArrayList<Node> uConnections = (ArrayList<Node>) this.getConnections().get("U").clone();
+		ArrayList<Node> allConnections = new ArrayList<Node>();
 		allConnections.addAll(tConnections);
 		allConnections.addAll(bConnections);
 		allConnections.addAll(uConnections);
@@ -182,8 +182,8 @@ public class Stop {
 	 * @param stop
 	 *            which stop
 	 */
-	public void addConnection(String key, Stop stop) {
-		ArrayList<Stop> list = connections.get(key);
+	public void addConnection(String key, Node stop) {
+		ArrayList<Node> list = connections.get(key);
 		list.add(stop);
 		connections.put(key, list);
 	}
@@ -192,7 +192,7 @@ public class Stop {
 		return number;
 	}
 
-	public Map<String, ArrayList<Stop>> getConnections() {
+	public Map<String, ArrayList<Node>> getConnections() {
 		return connections;
 	}
 }

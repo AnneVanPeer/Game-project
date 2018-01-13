@@ -2,17 +2,17 @@ import java.util.ArrayList;
 
 public class Game {
 
-	ArrayList<Stop> stops = new ArrayList<Stop>();
+	ArrayList<Node> stops = new ArrayList<Node>();
 	ArrayList<Detective> detectives = new ArrayList<Detective>();
 	Runner runner;
 	boolean playing;
-	ArrayList<Stop> runnerLocations = new ArrayList<Stop>();
+	ArrayList<Node> runnerLocations = new ArrayList<Node>();
 
-	public ArrayList<Stop> getRunnerLocations() {
+	public ArrayList<Node> getRunnerLocations() {
 		return runnerLocations;
 	}
 
-	public void setRunnerLocations(ArrayList<Stop> runnerLocations) {
+	public void setRunnerLocations(ArrayList<Node> runnerLocations) {
 		this.runnerLocations = runnerLocations;
 	}
 
@@ -24,7 +24,7 @@ public class Game {
 		this.playing = playing;
 	}
 
-	public ArrayList<Stop> getStops() {
+	public ArrayList<Node> getStops() {
 		return stops;
 	}
 

@@ -2,9 +2,9 @@
 public class Detective {
 
 	private int id;
-	private Stop location;
+	private Node location;
 
-	public Detective(int id, Stop location) {
+	public Detective(int id, Node location) {
 		this.id = id;
 		this.location = location;
 	}
@@ -13,11 +13,11 @@ public class Detective {
 		return id;
 	}
 
-	public Stop getLocation() {
+	public Node getLocation() {
 		return location;
 	}
 
-	public void setLocation(Stop location) {
+	public void setLocation(Node location) {
 		this.location = location;
 	}
 }

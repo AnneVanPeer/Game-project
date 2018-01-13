@@ -35,7 +35,7 @@ public class View {
 		returnval = returnval.concat(game.getRunner().getLocation().info());
 
 		returnval = returnval.concat("Possible runner positions: \n");
-		for (Stop s : game.getRunnerLocations()) {
+		for (Node s : game.getRunnerLocations()) {
 			returnval = returnval.concat(Integer.toString(s.getNumber()));
 			returnval = returnval.concat(", ");
 		}

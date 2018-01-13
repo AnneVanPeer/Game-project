@@ -15,7 +15,7 @@ public class Connecter {
 	 */
 	public void connect() {
 
-		ArrayList<Stop> stops = game.getStops();
+		ArrayList<Node> stops = game.getStops();
 
 		// 0
 		stops.get(0).addConnection("T", stops.get(1));

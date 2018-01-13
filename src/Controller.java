@@ -26,7 +26,7 @@ public class Controller {
 	@SuppressWarnings("unchecked")
 	public void init(int numS, int numD) {
 		for (int i = 0; i < numS; i++) {
-			game.getStops().add(new Stop(i));
+			game.getStops().add(new Node(i));
 		}
 
 		for (int i = 0; i < numD; i++) {
@@ -34,7 +34,7 @@ public class Controller {
 					.add(new Detective(i, game.getStops().get(new Random().nextInt(numS / numD) + i * (numS / numD))));
 		}
 
-		Stop runnerLocation;
+		Node runnerLocation;
 		do {
 			runnerLocation = game.getStops().get(new Random().nextInt(numS));
 		} while (inList(runnerLocation, game.getDetectives()));
@@ -43,7 +43,7 @@ public class Controller {
 
 		game.setPlaying(true);
 
-		game.setRunnerLocations((ArrayList<Stop>) game.getStops().clone());
+		game.setRunnerLocations((ArrayList<Node>) game.getStops().clone());
 
 		new Connecter(game).connect();
 	}
@@ -65,12 +65,12 @@ public class Controller {
 	 * @return true if the location of the runner is the same as the location of a
 	 *         detective
 	 */
-	private boolean inList(Stop runnerLocation, ArrayList<Detective> detectives) {
-		ArrayList<Stop> detectiveLocations = new ArrayList<Stop>();
+	private boolean inList(Node runnerLocation, ArrayList<Detective> detectives) {
+		ArrayList<Node> detectiveLocations = new ArrayList<Node>();
 		for (Detective d : game.getDetectives()) {
 			detectiveLocations.add(d.getLocation());
 		}
-		for (Stop d : detectiveLocations) {
+		for (Node d : detectiveLocations) {
 			if (runnerLocation.equals(d)) {
 				return true;
 			}
@@ -109,10 +109,10 @@ public class Controller {
 	 * Moves the detectives across the map
 	 */
 	public void moveDetectives() {
-		Stop goal = game.getRunner().getLocation();
+		Node goal = game.getRunner().getLocation();
 		for (Detective d : game.getDetectives()) {
-			ArrayList<ArrayList<Stop>> routes = d.getLocation().pathTo(goal);
-			ArrayList<Stop> chosenRoute = routes.get(new Random().nextInt(routes.size()));
+			ArrayList<ArrayList<Node>> routes = d.getLocation().pathTo(goal);
+			ArrayList<Node> chosenRoute = routes.get(new Random().nextInt(routes.size()));
 			boolean free = true;
 			for (Detective det : game.getDetectives()) {
 				if (det.getLocation().equals(chosenRoute.get(1))) {
@@ -122,7 +122,7 @@ public class Controller {
 			if (free) {
 				d.setLocation(chosenRoute.get(1));
 			} else {
-				Stop destination;
+				Node destination;
 				do {
 					destination = d.getLocation().getAllConnections()
 							.get(new Random().nextInt(d.getLocation().getAllConnections().size()));
@@ -143,19 +143,19 @@ public class Controller {
 			return;
 		}
 		if (turn % 3 == 0) {
-			ArrayList<Stop> locations = new ArrayList<Stop>();
+			ArrayList<Node> locations = new ArrayList<Node>();
 			locations.add(game.getRunner().getLocation());
 			game.setRunnerLocations(locations);
 		} else {
-			ArrayList<Stop> locations = new ArrayList<Stop>();
-			for (Stop s : game.getRunnerLocations()) {
+			ArrayList<Node> locations = new ArrayList<Node>();
+			for (Node s : game.getRunnerLocations()) {
 				System.out.println(s);
-				ArrayList<Stop> connectionsS = s.getAllConnections();
-				for (Stop cs : connectionsS) {
+				ArrayList<Node> connectionsS = s.getAllConnections();
+				for (Node cs : connectionsS) {
 					locations.add(cs);
 				}
 			}
-			game.setRunnerLocations((ArrayList<Stop>) locations.stream().distinct().collect(Collectors.toList()));
+			game.setRunnerLocations((ArrayList<Node>) locations.stream().distinct().collect(Collectors.toList()));
 		}
 	}
 }
