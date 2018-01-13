@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 //hai
 public class Connecter {
-
+//testttt
 	private Game game;
 
 	public Connecter(Game game) {
