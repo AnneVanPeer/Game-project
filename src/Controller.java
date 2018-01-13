@@ -26,24 +26,24 @@ public class Controller {
 	@SuppressWarnings("unchecked")
 	public void init(int numS, int numD) {
 		for (int i = 0; i < numS; i++) {
-			game.getStops().add(new Node(i));
+			game.getNodes().add(new Node(i));
 		}
 
 		for (int i = 0; i < numD; i++) {
 			game.getDetectives()
-					.add(new Detective(i, game.getStops().get(new Random().nextInt(numS / numD) + i * (numS / numD))));
+					.add(new Detective(i, game.getNodes().get(new Random().nextInt(numS / numD) + i * (numS / numD))));
 		}
 
 		Node runnerLocation;
 		do {
-			runnerLocation = game.getStops().get(new Random().nextInt(numS));
+			runnerLocation = game.getNodes().get(new Random().nextInt(numS));
 		} while (inList(runnerLocation, game.getDetectives()));
 
 		game.setRunner(new Runner(runnerLocation));
 
 		game.setPlaying(true);
 
-		game.setRunnerLocations((ArrayList<Node>) game.getStops().clone());
+		game.setRunnerLocations((ArrayList<Node>) game.getNodes().clone());
 
 		new Connecter(game).connect();
 	}
@@ -101,7 +101,7 @@ public class Controller {
 		System.out.println("Move to: ");
 		int n;
 		n = reader.nextInt();
-		game.getRunner().setLocation(game.getStops().get(n));
+		game.getRunner().setLocation(game.getNodes().get(n));
 		this.updateRunnerLocations(turn + 1);
 	}
 

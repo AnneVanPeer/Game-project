@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Game {
 
-	ArrayList<Node> stops = new ArrayList<Node>();
+	ArrayList<Node> nodes = new ArrayList<Node>();
 	ArrayList<Detective> detectives = new ArrayList<Detective>();
 	Runner runner;
 	boolean playing;
@@ -24,8 +24,8 @@ public class Game {
 		this.playing = playing;
 	}
 
-	public ArrayList<Node> getStops() {
-		return stops;
+	public ArrayList<Node> getNodes() {
+		return nodes;
 	}
 
 	public ArrayList<Detective> getDetectives() {
