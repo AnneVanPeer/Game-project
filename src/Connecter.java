@@ -1,6 +1,6 @@
 //hoii
 import java.util.ArrayList;
-
+//hai
 public class Connecter {
 
 	private Game game;
