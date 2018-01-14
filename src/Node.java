@@ -7,10 +7,12 @@ public class Node {
 
 	private int number;
 	private Map<String, ArrayList<Node>> connections = new HashMap<String, ArrayList<Node>>();
+	private int[] location;
 
-	public Node(int n) {
+	public Node(int n, int x, int y) {
 		this.number = n;
 		initializeConnectionLists();
+		location = new int[]{x, y};
 	}
 
 	/**
@@ -194,5 +196,9 @@ public class Node {
 
 	public Map<String, ArrayList<Node>> getConnections() {
 		return connections;
+	}
+	
+	public int[] getLocation() {
+		return location;
 	}
 }

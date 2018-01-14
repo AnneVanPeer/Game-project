@@ -26,7 +26,7 @@ public class Controller {
 	@SuppressWarnings("unchecked")
 	public void init(int numS, int numD) {
 		for (int i = 0; i < numS; i++) {
-			game.getNodes().add(new Node(i));
+			game.getNodes().add(new Node(i, i, i)); //TODO:last two variabes as dummy for the node location on the coordinate system.
 		}
 
 		for (int i = 0; i < numD; i++) {

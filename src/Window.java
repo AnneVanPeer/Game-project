@@ -6,10 +6,12 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class Window{
+	
+	private Game game;
 		
 	public Window(Game game) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		
+		this.game = game;
 		JFrame frame = new JFrame("map");
 		
 		this.fillFrame(frame);
@@ -23,7 +25,7 @@ public class Window{
 	private void fillFrame(JFrame frame) {
 		frame.setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
-		frame.add(new MapPanel(), BorderLayout.CENTER);
+		frame.add(new MapPanel(game), BorderLayout.CENTER);
 		frame.add(new GamePanel(), BorderLayout.SOUTH);
 	}
 }
