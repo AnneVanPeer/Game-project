@@ -29,7 +29,7 @@ public class MapPanel extends JPanel{
 
 	private void fillPanel(Game game) {
 		try {
-			image = ImageIO.read(new File("src/sy.png"));
+			image = ImageIO.read(new File("src/node.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,9 +59,11 @@ public class MapPanel extends JPanel{
 	    g2D.drawImage(image, x, y, w, h, this);  
     }
 	
-	public void setImageLocation(int x, int y) {
+	public void setImageProperties(int x, int y, int w, int h) {
 		this.x = x;
 		this.y = y;
+		this.w = w;
+		this.h = h;
 		repaint();
 	}
 	
@@ -77,16 +79,12 @@ public class MapPanel extends JPanel{
 	public int getImageX() {
 		return x;
 	}
+	
+	public int getImageWidth() {
+		return w;
+	}
 
-	public void setImageSize(Boolean zoomIn) {
-		if(zoomIn) {
-			w = (int) (w*1.3);
-			h = (int) (h*1.3);
-		}
-		else {
-			w = (int) (w/1.3);
-			h = (int) (h/1.3);
-		}
-		repaint();	
+	public int getImageHeight() {
+		return h;
 	}
 }
