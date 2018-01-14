@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,26 +19,12 @@ public class CoordSys {
 	private ArrayList<Node> nodes  = new ArrayList<>();
 	private MapPanel mp;
 	private double[] visibleCoords = {MINX, MAXX, MINY, MAXY};
-	private JLabel image;
 
 	public CoordSys(MapPanel mp, Game game) {
 		this.mp = mp;
 		//nodes = game.getNodes(); Turned of for testing
 		nodes.add(new Node(1,1,1));
 		nodes.add(new Node(2,10,10));
-		try {
-            BufferedImage img = ImageIO.read(new File(
-            		"src/sy.png"));
-            image = new JLabel(new ImageIcon(img));
-            image.setSize(image.getPreferredSize());
-           // MouseHandler mh  = new MouseHandler();
-           // label.addMouseListener(mh);
-            //label.addMouseMotionListener(mh);
-            mp.add(image);
-        } catch (IOException exp) {
-            exp.printStackTrace();
-        }
-		new JLabel(new ImageIcon("src/sy.png"));
 	}
 	
 	public void setVisibleCoords(double minx, double maxx, double miny, double maxy) {
@@ -50,8 +38,14 @@ public class CoordSys {
 		return visibleCoords;
 	}
 	
-	public void setImageLocation(int x, int y) {
+	/*public void setImageLocation(int x, int y) {
 		image.setLocation(x, y);
+	}
+	
+	public void setImageSize(float amount) {
+		int newWidth = (int) (image.getSize().width + amount);
+		int newHeight = (int) (image.getSize().height + amount);
+		image.setSize(new Dimension(newWidth, newHeight));
 	}
 	
 	public JLabel getImageComp() {
@@ -60,6 +54,6 @@ public class CoordSys {
 	
 	public Point getImageLocation() {
 		return image.getLocation();
-	}
+	}*/
 
 }
