@@ -37,7 +37,7 @@ public class Controller {
 		Node runnerLocation;
 		do {
 			runnerLocation = game.getNodes().get(new Random().nextInt(numS));
-		} while (inList(runnerLocation, game.getDetectives()));
+		} while (inList(runnerLocation, game.getDetectiveLocations()));
 
 		game.setRunner(new Runner(runnerLocation));
 
@@ -56,22 +56,17 @@ public class Controller {
 	}
 
 	/**
-	 * Checks if the runner is standing on the same stop as a detective
+	 * Checks if a locaon is in a list of locations
 	 * 
-	 * @param runnerLocation
-	 *            current location of the runner
-	 * @param detectives
-	 *            list of the detectives
-	 * @return true if the location of the runner is the same as the location of a
-	 *         detective
+	 * @param Location
+	 *            the location
+	 * @param Locations
+	 *            list of the locations
+	 * @return true if the location is in the list of locations
 	 */
-	private boolean inList(Node runnerLocation, ArrayList<Detective> detectives) {
-		ArrayList<Node> detectiveLocations = new ArrayList<Node>();
-		for (Detective d : game.getDetectives()) {
-			detectiveLocations.add(d.getLocation());
-		}
-		for (Node d : detectiveLocations) {
-			if (runnerLocation.equals(d)) {
+	private boolean inList(Node Location, ArrayList<Node> Locations) {
+		for (Node l : Locations) {
+			if (Location.equals(l)) {
 				return true;
 			}
 		}
@@ -82,7 +77,7 @@ public class Controller {
 	 * Checks if the runner has been caught, updates the playing state accordingly
 	 */
 	public void updatePlaying() {
-		if (inList(game.getRunner().getLocation(), game.getDetectives())) {
+		if (inList(game.getRunner().getLocation(), game.getDetectiveLocations())) {
 			game.setPlaying(false);
 			System.out.println("\n\n----------\nRunner caught!\n----------");
 		}
@@ -101,6 +96,10 @@ public class Controller {
 		System.out.println("Move to: ");
 		int n;
 		n = reader.nextInt();
+		while(!inList(game.getNodes().get(n), game.getRunner().getLocation().getAllConnections()) && !inList(game.getNodes().get(n), game.getDetectiveLocations())) {
+			System.out.println("Invalid location, choose again: ");
+			n = reader.nextInt();
+		}
 		game.getRunner().setLocation(game.getNodes().get(n));
 		this.updateRunnerLocations(turn + 1);
 	}

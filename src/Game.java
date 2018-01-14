@@ -8,6 +8,14 @@ public class Game {
 	boolean playing;
 	ArrayList<Node> runnerLocations = new ArrayList<Node>();
 
+	public ArrayList<Node> getDetectiveLocations(){
+		ArrayList<Node> detectiveLocations = new ArrayList<Node>();
+		for (Detective d : this.getDetectives()) {
+			detectiveLocations.add(d.getLocation());
+		}
+		return detectiveLocations;
+	}
+	
 	public ArrayList<Node> getRunnerLocations() {
 		return runnerLocations;
 	}
