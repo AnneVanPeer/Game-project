@@ -1,14 +1,12 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class Window{
-	
-	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	
+		
 	public Window(Game game) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -24,7 +22,8 @@ public class Window{
 
 	private void fillFrame(JFrame frame) {
 		frame.setBackground(Color.WHITE);
-		frame.add(new JLabel("hoii"));
+		frame.setLayout(new BorderLayout());
+		frame.add(new MapPanel(), BorderLayout.CENTER);
+		frame.add(new GamePanel(), BorderLayout.SOUTH);
 	}
-
 }
