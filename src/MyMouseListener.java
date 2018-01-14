@@ -11,46 +11,26 @@ import javax.swing.JLabel;
 public class MyMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener{
 	
 	static final String NEWLINE = System.getProperty("line.separator");
-	private CoordSys cs;
+	private MapPanel mp;
+	private int x;
+    private int y;
 
-	public MyMouseListener(CoordSys cs) {
-		// TODO Auto-generated constructor stub
-		this.cs = cs;
+	public MyMouseListener(MapPanel mp) {
+		this.mp = mp;
 	}
 
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
-			//TODO Used to zoom in and out.
-        String message;
-        int notches = e.getWheelRotation();
-        if (notches < 0) {
-            message = "Mouse wheel moved UP "
-                    + -notches + " notch(es)" + NEWLINE;
-        } else {
-            message = "Mouse wheel moved DOWN "        
-                    + notches + " notch(es)" + NEWLINE;
-        }
-        if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
-            message += "    Scroll type: WHEEL_UNIT_SCROLL" + NEWLINE;
-            message += "    Scroll amount: " + e.getScrollAmount()
-            + " unit increments per notch" + NEWLINE;
-            message += "    Units to scroll: " + e.getUnitsToScroll()
-            + " unit increments" + NEWLINE;
-           // message += "    Vertical unit increment: "
-            //        + scrollPane.getVerticalScrollBar().getUnitIncrement(1)
-            //        + " pixels" + NEWLINE;
-        } else { //scroll type == MouseWheelEvent.WHEEL_BLOCK_SCROLL;
-            message += "    Scroll type: WHEEL_BLOCK_SCROLL" + NEWLINE;
-           // message += "    Vertical block increment: "
-            //        + scrollPane.getVerticalScrollBar().getBlockIncrement(1)
-            //        + " pixels" + NEWLINE;
-        }
-        System.out.println(message);
+	public void mouseWheelMoved(MouseWheelEvent e) {		
+		int x = e.getX();
+	    int y = e.getY();
+
+	    if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
+	    	if(e.getWheelRotation() <0)
+	    		mp.setImageSize(true);
+	    	else mp.setImageSize(false);
+	    }
+	    System.out.println("scroll");
     }
-
-	private int x;
-
-    private int y;
 
     public void mousePressed(MouseEvent e) {
       x = e.getX();
@@ -58,11 +38,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
     }
 
     public void mouseDragged(MouseEvent e) {
-
       int dx = e.getX() - x;
       int dy = e.getY() - y;
 
-      cs.setImageLocation(cs.getImageLocation().x + dx, cs.getImageLocation().y + dy);
+      mp.setImageLocation(mp.getImageX() + dx, mp.getImageY() + dy);
 
       x += dx;
       y += dy;
