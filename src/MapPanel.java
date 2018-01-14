@@ -18,9 +18,12 @@ public class MapPanel extends JPanel{
 
 	private void fillPanel(Game game) {
 		coordSys = new CoordSys(this, game);
-		
+		MyMouseListener mml = new MyMouseListener(coordSys);
+		this.addMouseListener(mml);
+		this.addMouseMotionListener(mml);
+		this.addMouseWheelListener(mml);
 		//add borders
-		//add listeners for mouse (uses the coodsys).
+		//add listeners for mouse (uses the coordsys).
 		
 		
 	}
