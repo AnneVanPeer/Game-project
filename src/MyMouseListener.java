@@ -48,22 +48,24 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
         System.out.println(message);
     }
 
-	private Point offset;
+	private int x;
 
-    @Override
+    private int y;
+
     public void mousePressed(MouseEvent e) {
-        offset = e.getPoint();
+      x = e.getX();
+      y = e.getY();
     }
 
-    @Override
     public void mouseDragged(MouseEvent e) {
-        int x = e.getPoint().x - offset.x;
-        int y = e.getPoint().y - offset.y;
-        Component component = cs.getImageComp();
-        Point location = component.getLocation();
-        location.x += x;
-        location.y += y;
-        component.setLocation(location);
+
+      int dx = e.getX() - x;
+      int dy = e.getY() - y;
+
+      cs.setImageLocation(cs.getImageLocation().x + dx, cs.getImageLocation().y + dy);
+
+      x += dx;
+      y += dy;
     }
 
 	@Override

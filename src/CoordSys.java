@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,6 @@ public class CoordSys {
             		"src/sy.png"));
             image = new JLabel(new ImageIcon(img));
             image.setSize(image.getPreferredSize());
-            image.setLocation(0, 0);
            // MouseHandler mh  = new MouseHandler();
            // label.addMouseListener(mh);
             //label.addMouseMotionListener(mh);
@@ -56,6 +56,10 @@ public class CoordSys {
 	
 	public JLabel getImageComp() {
 		return image;
+	}
+	
+	public Point getImageLocation() {
+		return image.getLocation();
 	}
 
 }
