@@ -16,6 +16,8 @@ public class MapPanel extends JPanel{
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private CoordSys coordSys;
 	private BufferedImage image;
+	private Dimension viewSize;
+	private double viewRatio;
 	private int x = 0;
 	private int y = 0;
 	private int w = 0;
@@ -23,7 +25,11 @@ public class MapPanel extends JPanel{
 
 	public MapPanel(Game game) {
 		this.setBackground(Color.GREEN);
-		this.setSize((int)screenSize.getWidth(), (int)(screenSize.getHeight()/2));
+		viewSize = new Dimension((int)screenSize.getWidth(), (int)(screenSize.getHeight()*.65));
+		viewRatio = viewSize.getWidth() / viewSize.getHeight();
+		this.setPreferredSize(viewSize);
+		//this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 500));
+        
 		fillPanel(game);
 	}
 
@@ -37,7 +43,7 @@ public class MapPanel extends JPanel{
 		this.w = image.getWidth();
 		this.h = image.getHeight();
 		coordSys = new CoordSys(this, game);
-		MyMouseListener mml = new MyMouseListener(this);
+		MyMouseListener mml = new MyMouseListener(this, coordSys);
 		this.addMouseListener(mml);
 		this.addMouseMotionListener(mml);
 		this.addMouseWheelListener(mml);
@@ -67,6 +73,9 @@ public class MapPanel extends JPanel{
 		repaint();
 	}
 	
+	public Dimension getViewSize() {
+		return this.getSize();
+	}
 	
 	public Image getImageComp() {
 		return image;
@@ -86,5 +95,9 @@ public class MapPanel extends JPanel{
 
 	public int getImageHeight() {
 		return h;
+	}
+	
+	public double getViewRatio() {
+		return viewRatio;
 	}
 }

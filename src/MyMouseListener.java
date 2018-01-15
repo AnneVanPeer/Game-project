@@ -13,11 +13,13 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 	static final String NEWLINE = System.getProperty("line.separator");
 	public final double scaleSpeed = .05;
 	private MapPanel mp;
+	private CoordSys cs;
 	private int x;
 	private int y;
 
-	public MyMouseListener(MapPanel mp) {
+	public MyMouseListener(MapPanel mp, CoordSys cs) {
 		this.mp = mp;
+		this.cs = cs;
 	}
 
 	@Override
@@ -27,11 +29,15 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
 		if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
 			double changeW = 20.0; // mp.getImageWidth()*scaleSpeed;
-			double changeH = 20.0; //mp.getImageHeight()*scaleSpeed;
+			double changeH = 20.0; // mp.getImageHeight()*scaleSpeed;
 			if (e.getWheelRotation() < 0)
-				mp.setImageProperties((int)(mp.getImageX()-(0.5*changeW)), (int)(mp.getImageY()-(0.5*changeH)), (int)(mp.getImageWidth()+changeW), (int)(mp.getImageHeight()+changeH));
+				mp.setImageProperties((int) (mp.getImageX() - (0.5 * changeW)),
+						(int) (mp.getImageY() - (0.5 * changeH)), (int) (mp.getImageWidth() + changeW),
+						(int) (mp.getImageHeight() + changeH));
 			else
-				mp.setImageProperties((int)(mp.getImageX()+(0.5*changeW)), (int)(mp.getImageY()+(0.5*changeH)), (int)(mp.getImageWidth()-changeW), (int)(mp.getImageHeight()-changeH));
+				mp.setImageProperties((int) (mp.getImageX() + (0.5 * changeW)),
+						(int) (mp.getImageY() + (0.5 * changeH)), (int) (mp.getImageWidth() - changeW),
+						(int) (mp.getImageHeight() - changeH));
 		}
 		System.out.println("scroll at " + x + " " + y);
 	}
@@ -44,9 +50,18 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 	public void mouseDragged(MouseEvent e) {
 		int dx = e.getX() - x;
 		int dy = e.getY() - y;
+		double dxCorrected = dx / mp.getViewSize().getWidth(); // Compute the corrected change in x and y as a ratio
+																// movement of the mouse compared to the size of the
+																// real-view.
+		double dyCorrected = dy / mp.getViewSize().getHeight();
 		mp.setImageProperties(mp.getImageX() + dx, mp.getImageY() + dy, mp.getImageWidth(), mp.getImageHeight());
 		x += dx;
 		y += dy;
+		double visibleWidth = cs.getVisibleCoords()[1] - cs.getVisibleCoords()[0];
+		double visibleHeight = cs.getVisibleCoords()[3] - cs.getVisibleCoords()[2];
+		cs.setVisibleCoords(cs.getVisibleCoords()[0] + (visibleWidth * dx),
+				cs.getVisibleCoords()[1] + (visibleWidth * dx), cs.getVisibleCoords()[2] + (visibleHeight * dy),
+				cs.getVisibleCoords()[3] + (visibleHeight * dy));
 	}
 
 	@Override
