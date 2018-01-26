@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 public class CoordSys {
 	
-	public final double MINX = 0, MINY = 0, MAXX = 1000, MAXY = 1000;
+	public final double MINX = 0, MINY = 0, MAXX = 100, MAXY = 100;
 	private ArrayList<Node> nodes  = new ArrayList<>();
 	private MapPanel mp;
 	private double[] visibleCoords = new double[4];
@@ -35,37 +35,43 @@ public class CoordSys {
 	 * @param maxy
 	 */
 	public void setVisibleCoords(double minx, double maxx, double miny, double maxy) {
-		if(minx<MINX || maxx>MAXX) { //TODO: moet wel geval onderschijding boven en onder!
-			//Voorbeeld:Als minx<MINX dan [0]=MINX
-			if(miny<MINY || maxy>MAXY) {
-				visibleCoords[0] = MINX;
-				visibleCoords[1] = MAXX;
-			}
-			else {
-				visibleCoords[0] = MINX;
-				visibleCoords[1] = MAXX;
-				visibleCoords[2] = miny;
-				visibleCoords[3] = maxy;
-			}
+		double width = maxx-minx;
+		double height = maxy-miny;
+		//System.out.println(miny + "   " + maxy);
+		visibleCoords[0] = minx;
+		visibleCoords[1] = maxx;
+		visibleCoords[2] = miny;
+		visibleCoords[3] = maxy;
+		if(minx<MINX) {
+			visibleCoords[0] = MINX;
+			visibleCoords[1] = MINX+width;
+		} else if(maxx>MAXX) {
+			visibleCoords[0] = MAXX-width;
+			visibleCoords[1] = MAXX;
 		}
-		else if(miny<MINY || maxy>MAXY) {
-			if(minx<MINX || maxx>MAXX) {}
-			else {
-				visibleCoords[0] = minx;
-				visibleCoords[1] = maxx;
-				visibleCoords[2] = MINY;
-				visibleCoords[3] = MAXY;
-			}
-		}
-		else {
-			visibleCoords[0] = minx;
-			visibleCoords[1] = maxx;
-			visibleCoords[2] = miny;
-			visibleCoords[3] = maxy;
-		}
+		if(miny<MINY) {
+			visibleCoords[2] = MINY;
+			visibleCoords[3] = MINY+height;
+		} else if(maxy>MAXY) {
+			visibleCoords[2] = MAXY-height;
+			visibleCoords[3] = MAXY;
+		}		
 		System.out.println("visible: " + visibleCoords[0] + " " + visibleCoords[1] + " " + visibleCoords[2] + " " + visibleCoords[3]);
+		//System.out.println("width " + (visibleCoords[1]-visibleCoords[0]) + "height " + (visibleCoords[3]-visibleCoords[2]));
+		setImage();
 	}
 	
+	private void setImage() {
+		int imageX = (int)(mp.getViewSize().getWidth()/MAXX*visibleCoords[0]);
+		int imageY = (int)(mp.getViewSize().getHeight()/MAXY*visibleCoords[2]);
+		int tempw = (int)( (MAXX-visibleCoords[1]) * (mp.getViewSize().getWidth()/MAXX) );
+		int temph = (int)( (MAXY-visibleCoords[3]) * (mp.getViewSize().getHeight()/MAXY) );
+		int imageWidth = imageX + tempw + (int)(mp.getViewSize().getWidth());
+		int imageHeight = imageY + temph + (int)(mp.getViewSize().getHeight());
+		mp.setImageProperties(imageX, imageY, imageWidth, imageHeight);
+		
+	}
+
 	/**
 	 * double minx, double maxx, double miny, double maxy
 	 * @return

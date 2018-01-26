@@ -100,4 +100,13 @@ public class MapPanel extends JPanel{
 	public double getViewRatio() {
 		return viewRatio;
 	}
+	
+	/**
+	 * 
+	 * @return width, height
+	 */
+	public int[] getImageProp() {
+		int[] A = new int[] {image.getWidth(), image.getHeight()};
+		return A;
+	}
 }
