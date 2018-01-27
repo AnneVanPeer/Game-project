@@ -25,6 +25,7 @@ public class CoordSys {
 		nodes.add(new Node(2,100,100));
 		setVisibleCoords(MINX, MAXX, MINY, MAXY/mp.getViewRatio()); 
 		System.out.println("visible: " + visibleCoords[0] + " " + visibleCoords[1] + " " + visibleCoords[2] + " " + visibleCoords[3]);
+		setImage();
 	}
 	
 	/**
@@ -62,8 +63,8 @@ public class CoordSys {
 	}
 	
 	private void setImage() {
-		int imageX = (int)(mp.getViewSize().getWidth()/MAXX*visibleCoords[0]);
-		int imageY = (int)(mp.getViewSize().getHeight()/MAXY*visibleCoords[2]);
+		int imageX = - (int)(mp.getViewSize().getWidth()/MAXX*visibleCoords[0]);
+		int imageY = - (int)(mp.getViewSize().getHeight()/MAXY*visibleCoords[2]);
 		int tempw = (int)( (MAXX-visibleCoords[1]) * (mp.getViewSize().getWidth()/MAXX) );
 		int temph = (int)( (MAXY-visibleCoords[3]) * (mp.getViewSize().getHeight()/MAXY) );
 		int imageWidth = imageX + tempw + (int)(mp.getViewSize().getWidth());

@@ -53,7 +53,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 		double dxCorrected = dx / mp.getViewSize().getWidth(); // Compute the corrected change in x and y as a ratio
 																// movement of the mouse compared to the size of the
 																// real-view.
-		double dyCorrected = dy / mp.getViewSize().getHeight();
+		double dyCorrected = - dy / mp.getViewSize().getHeight();
 		//mp.setImageProperties(mp.getImageX() + dx, mp.getImageY() + dy, mp.getImageWidth(), mp.getImageHeight());
 		x += dx;
 		y += dy;

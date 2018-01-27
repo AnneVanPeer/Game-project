@@ -35,7 +35,7 @@ public class MapPanel extends JPanel{
 
 	private void fillPanel(Game game) {
 		try {
-			image = ImageIO.read(new File("src/node.png"));
+			image = ImageIO.read(new File("src/europe.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,13 +50,6 @@ public class MapPanel extends JPanel{
 		//add borders
 		//add listeners for mouse (uses the coordsys).
 		
-		
-	}
-	/**
-	 * Function used to update to visible items on the map, based on the coordinate system.
-	 */
-	public void updateMap() {
-
 	}
 	
 	protected void paintComponent(Graphics g) {
