@@ -16,9 +16,9 @@ public class Window {
 
 		this.fillFrame(frame);
 		frame.pack();
-		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setSize(new Dimension((int)(screenSize.getWidth()/2), (int)screenSize.getHeight()));
-		frame.setLocation(0,0);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setSize(new Dimension((int)(screenSize.getWidth()/2), (int)screenSize.getHeight()));
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
 	}

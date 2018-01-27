@@ -67,8 +67,8 @@ public class CoordSys {
 		int imageY = - (int)(mp.getViewSize().getHeight()/MAXY*visibleCoords[2]);
 		int tempw = (int)( (MAXX-visibleCoords[1]) * (mp.getViewSize().getWidth()/MAXX) );
 		int temph = (int)( (MAXY-visibleCoords[3]) * (mp.getViewSize().getHeight()/MAXY) );
-		int imageWidth = imageX + tempw + (int)(mp.getViewSize().getWidth());
-		int imageHeight = imageY + temph + (int)(mp.getViewSize().getHeight());
+		int imageWidth = - imageX + tempw + (int)(mp.getViewSize().getWidth());
+		int imageHeight = - imageY + temph + (int)(mp.getViewSize().getHeight());
 		mp.setImageProperties(imageX, imageY, imageWidth, imageHeight);
 		
 	}
@@ -87,6 +87,26 @@ public class CoordSys {
 	
 	public void setPanelCoordRatio(double ratio) {
 		panelCoordRatio = ratio;
+	}
+
+	/**
+	 * Compute the relative x location of a pixel to the coordsys.
+	 * @param x
+	 * @return
+	 */
+	public int getXcoord(int x) {
+		int newX = (int)(mp.getViewSize().getWidth()/(visibleCoords[1]-visibleCoords[0]) *x);
+		return newX;
+	}
+
+	/**
+	 * Compute the relative y location of a pixel to the coordsys.
+	 * @param y
+	 * @return
+	 */
+	public int getYcoord(int y) {
+		int newY = (int)(mp.getViewSize().getHeight()/(visibleCoords[3]-visibleCoords[2]) *y);
+		return newY;
 	}
 	
 	/*public void setImageLocation(int x, int y) {
