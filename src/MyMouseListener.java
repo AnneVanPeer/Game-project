@@ -54,18 +54,16 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 	public void mouseDragged(MouseEvent e) {
 		int dx = e.getX() - x;
 		int dy = e.getY() - y;
-		double dxCorrected = dx / mp.getViewSize().getWidth() *2; // Compute the corrected change in x and y as a ratio
+		double dxCorrected = dx / mp.getViewSize().getWidth(); // Compute the corrected change in x and y as a ratio
 																// movement of the mouse compared to the size of the
 																// real-view.
-		double dyCorrected = - dy / mp.getViewSize().getHeight() *2;
+		double dyCorrected = - dy / mp.getViewSize().getHeight();
 		x += dx;
 		y += dy;
-		double visibleWidth = cs.getVisibleCoords()[1] - cs.getVisibleCoords()[0];
-		double visibleHeight = cs.getVisibleCoords()[3] - cs.getVisibleCoords()[2];
 		
-		cs.setVisibleCoords(cs.getVisibleCoords()[0] + (visibleWidth * dxCorrected),
-				cs.getVisibleCoords()[1] + (visibleWidth * dxCorrected), cs.getVisibleCoords()[2] + (visibleHeight * dyCorrected),
-				cs.getVisibleCoords()[3] + (visibleHeight * dyCorrected));
+		cs.setVisibleCoords(cs.getVisibleCoords()[0] + (cs.MAXX * dxCorrected),
+				cs.getVisibleCoords()[1] + (cs.MAXX * dxCorrected), cs.getVisibleCoords()[2] + (cs.MAXY * dyCorrected),
+				cs.getVisibleCoords()[3] + (cs.MAXY * dyCorrected));
 		}
 
 	@Override
