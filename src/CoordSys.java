@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 public class CoordSys {
 	
-	public final double MINX = 0, MINY = 0, MAXX = 100, MAXY = 100;
+	public final double MINX = 0, MINY = 0, MAXX = 100, MAXY = 100, ZOOMSTEP = 10;
 	private ArrayList<Node> nodes  = new ArrayList<>();
 	private MapPanel mp;
 	private double[] visibleCoords = new double[4];
