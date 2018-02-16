@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 public class CoordSys {
 	
-	public final double MINX = 0, MINY = 0, MAXX = 100, MAXY = 100, ZOOMSTEP = 10;
+	public final double MINX = 0, MINY = 0, MAXX = 100, MAXY = 100, ZOOMSTEP = 0.011;
 	private ArrayList<Node> nodes  = new ArrayList<>();
 	private MapPanel mp;
 	private double[] visibleCoords = new double[4];
@@ -46,17 +46,17 @@ public class CoordSys {
 		if(minx<MINX) {
 			visibleCoords[0] = MINX;
 			visibleCoords[1] = MINX+width;
-		} else if(maxx>MAXX) {
+		} if(maxx>MAXX) {
 			visibleCoords[0] = MAXX-width;
 			visibleCoords[1] = MAXX;
 		}
 		if(miny<MINY) {
 			visibleCoords[2] = MINY;
 			visibleCoords[3] = MINY+height;
-		} else if(maxy>MAXY) {
+		} if(maxy>MAXY) {
 			visibleCoords[2] = MAXY-height;
 			visibleCoords[3] = MAXY;
-		}		
+		}	
 		System.out.println("visible: " + visibleCoords[0] + " " + visibleCoords[1] + " " + visibleCoords[2] + " " + visibleCoords[3]);
 		//System.out.println("width " + (visibleCoords[1]-visibleCoords[0]) + "height " + (visibleCoords[3]-visibleCoords[2]));
 		setImage();
@@ -94,8 +94,8 @@ public class CoordSys {
 	 * @param x
 	 * @return
 	 */
-	public int getXcoord(int x) {
-		int newX = (int)(mp.getViewSize().getWidth()/(visibleCoords[1]-visibleCoords[0]) *x);
+	public double getXcoord(int x) {
+		double newX = (int)(visibleCoords[0] + ((visibleCoords[1]-visibleCoords[0])*(x/mp.getViewSize().getWidth())));
 		return newX;
 	}
 
@@ -104,8 +104,8 @@ public class CoordSys {
 	 * @param y
 	 * @return
 	 */
-	public int getYcoord(int y) {
-		int newY = (int)(mp.getViewSize().getHeight()/(visibleCoords[3]-visibleCoords[2]) *y);
+	public double getYcoord(int y) {
+		double newY = (int)(visibleCoords[2] + ((visibleCoords[3]-visibleCoords[2])*(y/mp.getViewSize().getHeight())));
 		return newY;
 	}
 	

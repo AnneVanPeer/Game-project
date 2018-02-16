@@ -26,38 +26,52 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		int xCoord = cs.getXcoord(x); //compute mouse location in coordsys.
-		int yCoord = cs.getYcoord(y);
+		double MouseXCoord = cs.getXcoord(x); //compute mouse location in coordsys.
+		double MouseYCoord = cs.getYcoord(y);
+		System.out.println("mouse at: " + MouseXCoord + ", " + MouseYCoord);
 
 		if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
-			double changeW = 20.0; // mp.getImageWidth()*scaleSpeed;
-			double changeH = 20.0; // mp.getImageHeight()*scaleSpeed;
+			//double changeW = 20.0; // mp.getImageWidth()*scaleSpeed;
+			//double changeH = 20.0; // mp.getImageHeight()*scaleSpeed;
 			double visibleW = cs.getVisibleCoords()[1] - cs.getVisibleCoords()[0];
-			double visibleH = cs.getVisibleCoords()[3] = cs.getVisibleCoords()[2];
+			double visibleH = cs.getVisibleCoords()[3] - cs.getVisibleCoords()[2];
 			double newVisibleW, newVisibleH;
-			int minx, miny;
+			double minx, miny;
 			if (e.getWheelRotation() < 0){
 				//mp.setImageProperties((int) (mp.getImageX() - (0.5 * changeW)),
 				//		(int) (mp.getImageY() - (0.5 * changeH)), (int) (mp.getImageWidth() + changeW),
 				//		(int) (mp.getImageHeight() + changeH));
-				newVisibleW = visibleW-cs.ZOOMSTEP;
-				newVisibleH = visibleH-cs.ZOOMSTEP;
-				minx = (int)((xCoord-cs.getVisibleCoords()[0])*(newVisibleW/visibleW))+xCoord;
-				miny = (int)((yCoord-cs.getVisibleCoords()[2])*(newVisibleH/visibleH))+yCoord;
+				newVisibleW = visibleW-cs.ZOOMSTEP*mp.getImageProp()[0];
+				newVisibleH = visibleH-cs.ZOOMSTEP*mp.getImageProp()[1];
+				double MinX = cs.getVisibleCoords()[0];
+				double MaxX = cs.getVisibleCoords()[1];
+				double MinY = cs.getVisibleCoords()[2];
+				double MaxY = cs.getVisibleCoords()[3];
+				minx = MinX + (cs.ZOOMSTEP*mp.getImageProp()[0]*((MouseXCoord-MinX)/visibleW));
+				miny = MinY + (cs.ZOOMSTEP*mp.getImageProp()[1]*((MouseYCoord-MinY)/visibleH));
+				//minx = cs.getVisibleCoords()[0] +0.5*cs.ZOOMSTEP*mp.getImageProp()[0]; 
+				//miny = cs.getVisibleCoords()[2] +0.5*cs.ZOOMSTEP*mp.getImageProp()[1]; 
+				//minx = (MouseXCoord-cs.getVisibleCoords()[0])*(newVisibleW/visibleW)+MouseXCoord;
+				//miny = (MouseYCoord-cs.getVisibleCoords()[2])*(newVisibleH/visibleH)+MouseYCoord;
 				cs.setVisibleCoords(minx, (minx+newVisibleW), miny, (miny+newVisibleH));
 			}
 			else {
 				//mp.setImageProperties((int) (mp.getImageX() + (0.5 * changeW)),
 				//		(int) (mp.getImageY() + (0.5 * changeH)), (int) (mp.getImageWidth() - changeW),
 				//		(int) (mp.getImageHeight() - changeH));
-				newVisibleW = visibleW+cs.ZOOMSTEP;
-				newVisibleH = visibleH+cs.ZOOMSTEP;
-				minx = (int)((xCoord-cs.getVisibleCoords()[0])*(newVisibleW/visibleW))+xCoord;
-				miny = (int)((yCoord-cs.getVisibleCoords()[2])*(newVisibleH/visibleH))+yCoord;
+				newVisibleW = visibleW+cs.ZOOMSTEP*mp.getImageProp()[0];
+				newVisibleH = visibleH+cs.ZOOMSTEP*mp.getImageProp()[1];
+				minx = cs.getVisibleCoords()[0] - (cs.ZOOMSTEP*mp.getImageProp()[0]*((MouseXCoord-cs.getVisibleCoords()[0])/visibleW));
+				miny = cs.getVisibleCoords()[1] - (cs.ZOOMSTEP*mp.getImageProp()[1]*((MouseYCoord-cs.getVisibleCoords()[2])/visibleH));
+				//minx = cs.getVisibleCoords()[0] -0.5*cs.ZOOMSTEP*mp.getImageProp()[0]; 
+				//miny = cs.getVisibleCoords()[2] -0.5*cs.ZOOMSTEP*mp.getImageProp()[1];
+				//minx = (MouseXCoord-cs.getVisibleCoords()[0])*(newVisibleW/visibleW)+MouseXCoord;
+				//miny = (MouseYCoord-cs.getVisibleCoords()[2])*(newVisibleH/visibleH)+MouseYCoord;
 				cs.setVisibleCoords(minx, (minx+newVisibleW), miny, (miny+newVisibleH));			
 			}
 		}
 		System.out.println("scroll at " + x + " " + y);
+		
 	}
 
 	public void mousePressed(MouseEvent e) {
