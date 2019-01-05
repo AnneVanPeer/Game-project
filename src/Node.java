@@ -190,6 +190,12 @@ public class Node {
 		connections.put(key, list);
 	}
 
+	ArrayList<Node> getSpecificConnections(String type) {
+		@SuppressWarnings("unchecked")
+		ArrayList<Node> connections = (ArrayList<Node>) this.getConnections().get(type).clone();
+		return connections;
+	}
+		
 	public int getNumber() {
 		return number;
 	}

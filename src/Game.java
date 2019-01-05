@@ -7,6 +7,7 @@ public class Game {
 	Runner runner;
 	boolean playing;
 	ArrayList<Node> runnerLocations = new ArrayList<Node>();
+	ArrayList<String> runnerPath = new ArrayList<String>();
 
 	public ArrayList<Node> getDetectiveLocations(){
 		ArrayList<Node> detectiveLocations = new ArrayList<Node>();
@@ -46,5 +47,13 @@ public class Game {
 
 	public void setRunner(Runner runner) {
 		this.runner = runner;
+	}
+
+	public ArrayList<String> getRunnerPath() {
+		return runnerPath;
+	}
+
+	public void setRunnerPath(ArrayList<String> runnerPath) {
+		this.runnerPath = runnerPath;
 	}
 }

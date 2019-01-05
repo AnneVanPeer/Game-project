@@ -96,11 +96,24 @@ public class Controller {
 		System.out.println("Move to: ");
 		int n;
 		n = reader.nextInt();
+		Node prevLoc = game.getRunner().getLocation();
+		// Only valid if next to current location and not at a detective location
 		while(!inList(game.getNodes().get(n), game.getRunner().getLocation().getAllConnections()) && !inList(game.getNodes().get(n), game.getDetectiveLocations())) {
 			System.out.println("Invalid location, choose again: ");
 			n = reader.nextInt();
 		}
-		game.getRunner().setLocation(game.getNodes().get(n));
+		Node nextLoc = game.getNodes().get(n);
+		game.getRunner().setLocation(nextLoc);
+		// updates the runner's path
+		ArrayList<String> rp = game.getRunnerPath();
+		if (inList(nextLoc, prevLoc.getSpecificConnections("T"))) {
+			rp.add("T");
+		} else if (inList(nextLoc, prevLoc.getSpecificConnections("B"))) {
+			rp.add("B");
+		} else {
+			rp.add("U");
+		}
+		game.setRunnerPath(rp);
 		this.updateRunnerLocations(turn + 1);
 	}
 
@@ -108,7 +121,7 @@ public class Controller {
 	 * Moves the detectives across the map
 	 */
 	public void moveDetectives() {
-		Node goal = game.getRunner().getLocation();
+		Node goal = game.getRunnerLocations().get(new Random().nextInt(game.getRunnerLocations().size()));
 		for (Detective d : game.getDetectives()) {
 			ArrayList<ArrayList<Node>> routes = d.getLocation().pathTo(goal);
 			ArrayList<Node> chosenRoute = routes.get(new Random().nextInt(routes.size()));
@@ -142,19 +155,25 @@ public class Controller {
 			return;
 		}
 		if (turn % 3 == 0) {
-			ArrayList<Node> locations = new ArrayList<Node>();
-			locations.add(game.getRunner().getLocation());
-			game.setRunnerLocations(locations);
+			ArrayList<Node> possibleRunnerLocations = new ArrayList<Node>();
+			possibleRunnerLocations.add(game.getRunner().getLocation());
+			possibleRunnerLocations.removeAll(game.getDetectiveLocations());
+			game.setRunnerLocations(possibleRunnerLocations);
+			game.setRunnerPath(new ArrayList<String>());
 		} else {
 			ArrayList<Node> locations = new ArrayList<Node>();
-			for (Node s : game.getRunnerLocations()) {
+			ArrayList<Node> rl = game.getRunnerLocations();
+			rl.removeAll(game.getDetectiveLocations());
+			for (Node s : rl) {
 				System.out.println(s);
 				ArrayList<Node> connectionsS = s.getAllConnections();
 				for (Node cs : connectionsS) {
 					locations.add(cs);
 				}
 			}
-			game.setRunnerLocations((ArrayList<Node>) locations.stream().distinct().collect(Collectors.toList()));
+			ArrayList<Node> possibleRunnerLocations = (ArrayList<Node>) locations.stream().distinct().collect(Collectors.toList());
+			possibleRunnerLocations.removeAll(game.getDetectiveLocations());
+			game.setRunnerLocations(possibleRunnerLocations);
 		}
 	}
 }

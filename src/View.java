@@ -39,6 +39,13 @@ public class View {
 			returnval = returnval.concat(Integer.toString(s.getNumber()));
 			returnval = returnval.concat(", ");
 		}
+		
+		returnval = returnval.concat("\n");
+
+		for (String s : game.getRunnerPath()) {
+			returnval = returnval.concat(s);
+		}
+		
 		returnval = returnval.concat("\n");
 
 		System.out.println(returnval);
