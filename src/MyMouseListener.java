@@ -24,7 +24,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		int x = e.getX();
+		/*int x = e.getX();
 		int y = e.getY();
 		double MouseXCoord = cs.getXcoord(x); //compute mouse location in coordsys.
 		double MouseYCoord = cs.getYcoord(y);
@@ -71,7 +71,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 			}
 		}
 		System.out.println("scroll at " + x + " " + y);
-		
+		*/
 	}
 
 	public void mousePressed(MouseEvent e) {

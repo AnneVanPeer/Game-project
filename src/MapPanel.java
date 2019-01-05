@@ -17,52 +17,48 @@ public class MapPanel extends JPanel{
 	private CoordSys coordSys;
 	private BufferedImage image;
 	private Dimension viewSize;
-	private double viewRatio;
-	private int x = 0;
-	private int y = 0;
-	private int w = 0;
-	private int h = 0;
+	private final double panelSizeRatio = 3;
+	private int imageX = 0;
+	private int imageY = 0;
+	private int imageW = 0;
+	private int imageH = 0;
 
-	public MapPanel(Game game) {
+	public MapPanel() {
 		this.setBackground(Color.WHITE);
-		viewSize = new Dimension((int)screenSize.getWidth(), (int)(screenSize.getHeight()*.65));
-		viewRatio = viewSize.getWidth() / viewSize.getHeight();
+		viewSize = new Dimension((int)screenSize.getWidth(), (int)(screenSize.getHeight()*(2/panelSizeRatio)));
 		this.setPreferredSize(viewSize);
-		//this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 500));
         
-		fillPanel(game);
+		fillPanel();
 	}
 
-	private void fillPanel(Game game) {
+	private void fillPanel() {
 		try {
 			image = ImageIO.read(new File("src/europe.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.w = image.getWidth();
-		this.h = image.getHeight();
-		coordSys = new CoordSys(this, game);
+		this.imageW = image.getWidth();
+		this.imageH = image.getHeight();
+		coordSys = new CoordSys(this);
 		MyMouseListener mml = new MyMouseListener(this, coordSys);
 		this.addMouseListener(mml);
 		this.addMouseMotionListener(mml);
 		this.addMouseWheelListener(mml);
 		//add borders
 		//add listeners for mouse (uses the coordsys).
-		
 	}
 	
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
 		super.paintComponent(g);
-	    g2D.drawImage(image, x, y, w, h, this);  
+	    g2D.drawImage(image, imageX, imageY, imageW, imageH, this);  
     }
 	
 	public void setImageProperties(int x, int y, int w, int h) {
-		this.x = x;
-		this.y = y;
-		this.w = w;
-		this.h = h;
+		this.imageX = x;
+		this.imageY = y;
+		this.imageW = w;
+		this.imageH = h;
 		repaint();
 	}
 	
@@ -75,23 +71,23 @@ public class MapPanel extends JPanel{
 	}
 
 	public int getImageY() {
-		return y;
+		return imageY;
 	}
 
 	public int getImageX() {
-		return x;
+		return imageX;
 	}
 	
 	public int getImageWidth() {
-		return w;
+		return imageW;
 	}
 
 	public int getImageHeight() {
-		return h;
+		return imageH;
 	}
 	
-	public double getViewRatio() {
-		return viewRatio;
+	public double getPanelSizeRatio() {
+		return panelSizeRatio;
 	}
 	
 	/**
