@@ -24,7 +24,7 @@ public class MapPanel extends JPanel{
 	private int h = 0;
 
 	public MapPanel(Game game) {
-		this.setBackground(Color.GREEN);
+		this.setBackground(Color.WHITE);
 		viewSize = new Dimension((int)screenSize.getWidth(), (int)(screenSize.getHeight()*.65));
 		viewRatio = viewSize.getWidth() / viewSize.getHeight();
 		this.setPreferredSize(viewSize);

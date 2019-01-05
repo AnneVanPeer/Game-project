@@ -49,8 +49,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 				double MaxY = cs.getVisibleCoords()[3];
 				minx = MinX + (cs.ZOOMSTEP*mp.getImageProp()[0]*((MouseXCoord-MinX)/visibleW));
 				miny = MinY + (cs.ZOOMSTEP*mp.getImageProp()[1]*((MouseYCoord-MinY)/visibleH));
-				//minx = cs.getVisibleCoords()[0] +0.5*cs.ZOOMSTEP*mp.getImageProp()[0]; 
-				//miny = cs.getVisibleCoords()[2] +0.5*cs.ZOOMSTEP*mp.getImageProp()[1]; 
+				minx = cs.getVisibleCoords()[0] +0.5*cs.ZOOMSTEP*mp.getImageProp()[0]; 
+				miny = cs.getVisibleCoords()[2] +0.5*cs.ZOOMSTEP*mp.getImageProp()[1]; 
 				//minx = (MouseXCoord-cs.getVisibleCoords()[0])*(newVisibleW/visibleW)+MouseXCoord;
 				//miny = (MouseYCoord-cs.getVisibleCoords()[2])*(newVisibleH/visibleH)+MouseYCoord;
 				cs.setVisibleCoords(minx, (minx+newVisibleW), miny, (miny+newVisibleH));
@@ -63,8 +63,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 				newVisibleH = visibleH+cs.ZOOMSTEP*mp.getImageProp()[1];
 				minx = cs.getVisibleCoords()[0] - (cs.ZOOMSTEP*mp.getImageProp()[0]*((MouseXCoord-cs.getVisibleCoords()[0])/visibleW));
 				miny = cs.getVisibleCoords()[1] - (cs.ZOOMSTEP*mp.getImageProp()[1]*((MouseYCoord-cs.getVisibleCoords()[2])/visibleH));
-				//minx = cs.getVisibleCoords()[0] -0.5*cs.ZOOMSTEP*mp.getImageProp()[0]; 
-				//miny = cs.getVisibleCoords()[2] -0.5*cs.ZOOMSTEP*mp.getImageProp()[1];
+				minx = cs.getVisibleCoords()[0] -0.5*cs.ZOOMSTEP*mp.getImageProp()[0]; 
+				miny = cs.getVisibleCoords()[2] -0.5*cs.ZOOMSTEP*mp.getImageProp()[1];
 				//minx = (MouseXCoord-cs.getVisibleCoords()[0])*(newVisibleW/visibleW)+MouseXCoord;
 				//miny = (MouseYCoord-cs.getVisibleCoords()[2])*(newVisibleH/visibleH)+MouseYCoord;
 				cs.setVisibleCoords(minx, (minx+newVisibleW), miny, (miny+newVisibleH));			
