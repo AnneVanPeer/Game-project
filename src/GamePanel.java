@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel {
 
 	public GamePanel() {
-		this.setBackground(Color.BLUE);
+		this.setBackground(Color.BLACK);
 	}
 
 }

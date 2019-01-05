@@ -8,7 +8,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JLabel;
 
-public class MyMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener {
+public class MyMouseListener implements MouseListener, MouseMotionListener {
 
 	static final String NEWLINE = System.getProperty("line.separator");
 	public final double scaleSpeed = .05;
@@ -22,8 +22,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 		this.cs = cs;
 	}
 
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
+	//@Override
+	//public void mouseWheelMoved(MouseWheelEvent e) {
 		/*int x = e.getX();
 		int y = e.getY();
 		double MouseXCoord = cs.getXcoord(x); //compute mouse location in coordsys.
@@ -72,7 +72,7 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 		}
 		System.out.println("scroll at " + x + " " + y);
 		*/
-	}
+	//}
 
 	public void mousePressed(MouseEvent e) {
 		x = e.getX();

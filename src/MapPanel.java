@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class MapPanel extends JPanel{
@@ -24,7 +26,6 @@ public class MapPanel extends JPanel{
 	private int imageH = 0;
 
 	public MapPanel() {
-		this.setBackground(Color.WHITE);
 		viewSize = new Dimension((int)(screenSize.getWidth()*(2/panelSizeRatio)), (int)screenSize.getHeight());
 		this.setPreferredSize(viewSize);
         
@@ -43,7 +44,7 @@ public class MapPanel extends JPanel{
 		MyMouseListener mml = new MyMouseListener(this, coordSys);
 		this.addMouseListener(mml);
 		this.addMouseMotionListener(mml);
-		this.addMouseWheelListener(mml);
+		this.setBorder(BorderFactory.createMatteBorder(10, 1, 10, 10, Color.BLACK));
 		//add borders
 		//add listeners for mouse (uses the coordsys).
 	}

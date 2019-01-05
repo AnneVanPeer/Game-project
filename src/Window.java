@@ -20,7 +20,6 @@ public class Window {
 		//frame.setSize(new Dimension((int)(screenSize.getWidth()/2), (int)screenSize.getHeight()));
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-
 	}
 
 	private void fillFrame(JFrame frame) {
