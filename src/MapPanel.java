@@ -25,7 +25,7 @@ public class MapPanel extends JPanel{
 
 	public MapPanel() {
 		this.setBackground(Color.WHITE);
-		viewSize = new Dimension((int)screenSize.getWidth(), (int)(screenSize.getHeight()*(2/panelSizeRatio)));
+		viewSize = new Dimension((int)(screenSize.getWidth()*(2/panelSizeRatio)), (int)screenSize.getHeight());
 		this.setPreferredSize(viewSize);
         
 		fillPanel();

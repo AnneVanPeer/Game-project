@@ -25,8 +25,8 @@ public class Window {
 
 	private void fillFrame(JFrame frame) {
 		frame.setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
-		frame.add(new MapPanel());
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.LINE_AXIS));
 		frame.add(new GamePanel());
+		frame.add(new MapPanel());
 	}
 }
