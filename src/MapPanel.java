@@ -44,7 +44,7 @@ public class MapPanel extends JPanel{
 		MyMouseListener mml = new MyMouseListener(this, coordSys);
 		this.addMouseListener(mml);
 		this.addMouseMotionListener(mml);
-		this.setBorder(BorderFactory.createMatteBorder(10, 1, 10, 10, Color.BLACK));
+		this.setBorder(BorderFactory.createMatteBorder(7, 10, 7, 7, new Color(212,175,55)));
 		//add borders
 		//add listeners for mouse (uses the coordsys).
 	}
