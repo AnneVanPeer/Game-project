@@ -68,10 +68,9 @@ public class MapPanel extends JPanel{
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
 		super.paintComponent(g);
-	    g2D.drawImage(image, imageX, imageY, imageW, imageH, this);  
-	    for(Node node : nodes) {
-	    	g2D.drawImage(imageNode, 100, 100, 30, 30, this);
-	    }
+	    g2D.drawImage(image, imageX, imageY, imageW, imageH, this); 
+	    g2D.drawImage(imageNode, 0, 0, 100, 100, this);
+	    
 	      
     }
 	
