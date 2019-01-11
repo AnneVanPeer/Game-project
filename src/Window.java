@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -24,8 +25,8 @@ public class Window {
 
 	private void fillFrame(JFrame frame) {
 		frame.setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.LINE_AXIS));
-		frame.add(new GamePanel());
-		frame.add(new MapPanel());
+		frame.getContentPane().setLayout(new BorderLayout());
+		frame.add(new GamePanel(), BorderLayout.WEST);
+		frame.add(new MapPanel(), BorderLayout.CENTER);
 	}
 }
