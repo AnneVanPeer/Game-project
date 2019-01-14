@@ -28,14 +28,14 @@ public class MapPanel extends JPanel{
 	ArrayList<Node> nodes = new ArrayList<Node>();
 
 	public MapPanel() {
-		viewSize = new Dimension((int)(screenSize.getWidth()*(2/panelSizeRatio)), (int)screenSize.getHeight());
-		this.setPreferredSize(viewSize);
-        
-		fillPanel();
-		
+	
 		//Voor testen: hier handmatig de nodelist vullen
 		Node node = new Node(1, 1000, 1000);
 		nodes.add(node);
+		Node node2 = new Node(1, 100, 100);
+		nodes.add(node2);
+		
+		fillPanel();
 	}
 
 	private void fillPanel() {
@@ -52,24 +52,27 @@ public class MapPanel extends JPanel{
 		this.addMouseMotionListener(mml);
 		this.setBorder(BorderFactory.createMatteBorder(7, 10, 7, 7, new Color(189,133,57)));
 		
-		addNodes();
+		makeNodesImage();
 	}
 	
-	private void addNodes() {
-		for(Node node : nodes) {
-			try {
-				imageNode = ImageIO.read(new File("src/node.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	private void makeNodesImage() {
+		try {
+			imageNode = ImageIO.read(new File("src/node.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
 	}
 	
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2D = (Graphics2D) g;
 		super.paintComponent(g);
 	    g2D.drawImage(image, imageX, imageY, imageW, imageH, this); 
-	    g2D.drawImage(imageNode, 0, 0, 100, 100, this);
+	    for(Node node : nodes) {
+	    	int[] nodeLocation = coordSys.getNodeCoords(node.getLocation()[0], node.getLocation()[1]);
+	    	g2D.drawImage(imageNode, nodeLocation[0], nodeLocation[1], 100, 100, this);
+	    }
+	    
 	    
 	      
     }
