@@ -18,7 +18,7 @@ public class MapPanel extends JPanel{
 	
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private CoordSys coordSys;
-	private BufferedImage image, imageNode;
+	private BufferedImage image;
 	private Dimension viewSize;
 	private final double panelSizeRatio = 3;
 	private int imageX = 0;
@@ -52,16 +52,6 @@ public class MapPanel extends JPanel{
 		this.addMouseMotionListener(mml);
 		this.setBorder(BorderFactory.createMatteBorder(7, 10, 7, 7, new Color(189,133,57)));
 		
-		makeNodesImage();
-	}
-	
-	private void makeNodesImage() {
-		try {
-			imageNode = ImageIO.read(new File("src/node.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -70,11 +60,8 @@ public class MapPanel extends JPanel{
 	    g2D.drawImage(image, imageX, imageY, imageW, imageH, this); 
 	    for(Node node : nodes) {
 	    	int[] nodeLocation = coordSys.getNodeCoords(node.getLocation()[0], node.getLocation()[1]);
-	    	g2D.drawImage(imageNode, nodeLocation[0], nodeLocation[1], 100, 100, this);
-	    }
-	    
-	    
-	      
+	    	g2D.drawImage(node.getNodeImage(), nodeLocation[0], nodeLocation[1], 100, 100, this);
+	    }      
     }
 	
 	public void setImageProperties(int x, int y, int w, int h) {

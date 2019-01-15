@@ -1,18 +1,25 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 public class Node {
 
 	private int number;
 	private Map<String, ArrayList<Node>> connections = new HashMap<String, ArrayList<Node>>();
 	private int[] location;
+	private BufferedImage imageNode;
 
 	public Node(int n, int x, int y) {
 		this.number = n;
 		initializeConnectionLists();
 		location = new int[]{x, y};
+		this.makeNodesImage();
 	}
 
 	/**
@@ -23,6 +30,15 @@ public class Node {
 		connections.put("T", new ArrayList<Node>());
 		connections.put("B", new ArrayList<Node>());
 		connections.put("U", new ArrayList<Node>());
+	}
+	
+	private void makeNodesImage() {
+		try {
+			imageNode = ImageIO.read(new File("src/node.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -194,6 +210,10 @@ public class Node {
 		@SuppressWarnings("unchecked")
 		ArrayList<Node> connections = (ArrayList<Node>) this.getConnections().get(type).clone();
 		return connections;
+	}
+	
+	public BufferedImage getNodeImage() {
+		return imageNode;
 	}
 		
 	public int getNumber() {
