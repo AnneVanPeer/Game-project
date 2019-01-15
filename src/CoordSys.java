@@ -66,12 +66,11 @@ public class CoordSys {
 	}
 	
 	public int[] getNodeCoords(int nodeX, int nodeY) {
-		
-		int nodeNewX = (int)(((nodeX-visibleCoords[0])/(visibleCoords[1]-visibleCoords[0]))*mp.getViewSize().getWidth());
-		int nodeNewY = (int)(((nodeY-visibleCoords[2])/(visibleCoords[3]-visibleCoords[2]))*mp.getViewSize().getHeight());
+		int nodeNewX = (int) (nodeX-(visibleCoords[0]/MAXX* mp.getViewSize().getWidth()));
+		int nodeNewY = (int) (nodeY-(visibleCoords[2]/MAXY *mp.getViewSize().getHeight() ));
 		int[] location = new int[2];
-		location[0]=(int)mp.getViewSize().getWidth()-50;
-		location[1]=(int)mp.getViewSize().getHeight()-50;
+		location[0]=nodeNewX;
+		location[1]=nodeNewY;
 		return location;
 	}
 
